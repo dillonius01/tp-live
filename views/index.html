@@ -1,73 +1,101 @@
 {% extends 'layout.html' %}
 
-{% block title %}Trip Planner{% endblock %}
+{% block title %}Your Trip{% endblock %}
 
 {% block content %}
-  <content class="row">
-    <map-container class="col-sm-8 col-xs-12">
-      <map id="map-canvas"></map>
-    </map-container>
-    <div class="col-sm-4 col-xs-12">
-      <control class="row">
-        <choose-data class="col-xs-6 col-sm-12">
-          <chooser>
+<div id="app" class="clearfix">
+  <div class="map-container col-sm-8 col-lg-9">
+    <div>
+      <div id="map-canvas"></div>
+    </div>
+  </div>
+  <div id="control-panel" class="col-sm-4 col-lg-3 clearfix">
+    <div class="col-xs-6 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-body" id="options-panel">
+          <div>
             <h4>Hotels</h4>
-            <select>
-              {% for hotel in hotels %}
-              <option>{{ hotel.name }}</option>
+            <select data-type="hotel" id="hotel-choices">
+              {% for item in hotels %}
+                <option>{{item.name}}</option>
               {% endfor %}
             </select>
-            <button class="circle small-square">+</button>
-          </chooser>
-          <chooser>
+            <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
+          </div>
+          <div>
             <h4>Restaurants</h4>
-            <select>
-              {% for restaurant in restaurants %}
-              <option>{{ restaurant.name }}</option>
+            <select data-type="restaurant" id="restaurant-choices">
+              {% for item in restaurants %}
+                <option>{{item.name}}</option>
               {% endfor %}
             </select>
-            <button class="circle small-square">+</button>
-          </chooser>
-          <chooser>
+            <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
+          </div>
+          <div>
             <h4>Activities</h4>
-            <select>
-              {% for activity in activities %}
-              <option>{{ activity.name }}</option>
+            <select data-type="activity" id="activity-choices">
+              {% for item in activities %}
+                <option>{{item.name}}</option>
               {% endfor %}
             </select>
-            <button class="circle small-square">+</button>
-          </chooser>
-        </choose-data>
-        <div class="col-xs-6 col-sm-12">
-          <choose-day>
-            <div>
-              <span>Day 4</span><button class="circle small-square">x</button>
-            </div>
-          </choose-day>
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <button class="circle small-square">1</button>
-              <button class="circle small-square">2</button>
-              <button class="circle small-square">3</button>
-              <button class="circle small-square">+</button>
-            </div>
-            <div class="panel-body">
-              <h3>Hotels</h3>
-              <ul class="list-unstyled">
-                <li>Boardwalk</li>
-              </ul>
-              <h3>Restaurants</h3>
-              <ul class="list-unstyled">
-                <li>Le Cirque</li>
-              </ul>
-              <h3>Activities</h3>
-              <ul class="list-unstyled">
-                <li>Run Around</li>
-              </ul>
-            </div>
+            <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
           </div>
         </div>
-      </control>
+      </div>
     </div>
-  </content>
+    <div class="col-xs-6 col-sm-12">
+      <h3>
+        <span id="day-title">
+          <span>Day 2</span>
+          <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+        </span>
+      </h3>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="day-buttons">
+            <button class="btn btn-circle day-btn">1</button>
+            <button class="btn btn-circle day-btn current-day">2</button>
+            <button class="btn btn-circle day-btn">3</button>
+            <button class="btn btn-circle day-btn" id="day-add">+</button>
+          </div>
+        </div>
+        <div class="panel-body" id="itinerary">
+          <div>
+            <h4>My Hotel</h4>
+            <ul class="list-group">
+              <div class="itinerary-item">
+                <span class="title">Andaz Wall Street</span>
+                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+              </div>
+            </ul>
+          </div>
+          <div>
+            <h4>My Restaurants</h4>
+            <ul class="list-group">
+              <div class="itinerary-item">
+                <span class="title">Bouley</span>
+                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+              </div>
+            </ul>
+          </div>
+          <div>
+            <h4>My Activities</h4>
+            <ul class="list-group">
+              <div class="itinerary-item">
+                <span class="title">Mahayana Buddhist Temple Association</span>
+                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var hotels = {{ hotels | dump | safe }};
+  var restaurants = {{ restaurants | dump | safe }};
+  var activities = {{ activities | dump | safe }};
+</script>
 {% endblock %}

@@ -1,28 +1,39 @@
-var router = require('express').Router();
-var Bluebird = require('bluebird');
+var express = require('express');
+var router = express.Router();
+var Hotel = require('../models/hotel');
+var Restaurant = require('../models/restaurant');
+var Activity = require('../models/activity');
+var Place = require('../models/place');
+var Promise = require('bluebird');
 
-var db = require('../models');
-var Activity = db.model('activity');
-var Restaurant = db.model('restaurant');
-var Hotel = db.model('hotel');
+router.get('/', function(req, res, next) {
 
-router.get('/', function (req, res, next) {
-  Bluebird.all([
-    Activity.findAll(),
-    Restaurant.findAll(),
-    Hotel.findAll()
+  var findingHotels = Hotel.findAll({
+    include: [Place]
+  });
+
+  var findingActivities = Activity.findAll({
+    include: [Place]
+  });
+
+  var findingRestaurants = Restaurant.findAll({
+    include: [Place]
+  });
+
+  Promise.all([
+    findingHotels,
+    findingActivities,
+    findingRestaurants
   ])
-  .then(function (arrOfResults) {
-    var activities = arrOfResults[0];
-    var restaurants = arrOfResults[1];
-    var hotels = arrOfResults[2];
+  .spread(function(hotels, activities, restaurants) {
     res.render('index', {
-      hotels,
-      activities,
-      restaurants
+      hotels: hotels,
+      activities: activities,
+      restaurants: restaurants
     });
   })
   .catch(next);
+
 });
 
 module.exports = router;
