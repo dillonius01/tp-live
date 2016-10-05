@@ -148,3 +148,6 @@ listpair {
     float: right; }
   listpair span {
     width: 80%; }
+
+.hidden {
+  display: none; }

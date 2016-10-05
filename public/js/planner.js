@@ -6,6 +6,31 @@ var markers = {
 	restaurant: {},
 	activity: {}
 }
+
+// panel body html string
+var newPanel = '<div class="panel-body panel-day hidden">\
+          <div>\
+            <h4>My Hotel</h4>\
+            <ul class="list-group">\
+              <div class="itinerary-item" id="hotel-slot">\
+              </div>\
+            </ul>\
+          </div>\
+          <div>\
+            <h4>My Restaurants</h4>\
+            <ul class="list-group">\
+              <div class="itinerary-item" id="restaurant-slot">\
+              </div>\
+            </ul>\
+          </div>\
+          <div>\
+            <h4>My Activities</h4>\
+            <ul class="list-group">\
+              <div class="itinerary-item" id="activity-slot">\
+              </div>\
+            </ul>\
+          </div>\
+        </div>'
 // Renders all hotels/restos/activities as options in dropdown bar
 $(document).on('ready', function() {
 	var hotelChoices = $('#hotel-choices')
@@ -95,7 +120,7 @@ $(document).on('ready', function() {
 
 		// 1. remove text & button from page
 		listpairToRemove.remove();
-	
+
 		// 2. remove marker from map
 		markers[markerType][itineraryText].setMap(null);
 
@@ -107,10 +132,32 @@ $(document).on('ready', function() {
 
 // Create new Day button when + clicked
 $(document).on('ready', function() {
-	$('#day-add').on('click', function() {
+	$('#day-add').on('click', function(event) {
+		event.stopPropagation();
 		var newButtonVal = Number($(this).prev().text()) + 1;
 		var newDay = '<button class="btn btn-circle day-btn">' + newButtonVal.toString() + '</button>';
 		$(newDay).insertBefore($(this));
+
+// adds a new panel body for the new day
+		$(document).find('#master-panel').append(newPanel);
+		$(document).find('.panel-day').last().attr('id', 'itinerary-' + newButtonVal)
 	})
 })
 
+// changes highlighted day button
+$(function(){
+	$('.day-buttons').on('click', '.day-btn', function () {
+		$(document).find('.current-day').removeClass('current-day');
+		$(this).addClass('current-day');
+
+// switches Day title header
+		var newDayNumber = $(this).text();
+		$(document).find('#day-title-text').text("Day " + newDayNumber);
+
+// brings up itinerary associated with chosen day
+		$(document).find('.visible').removeClass('visible').addClass('hidden');
+		$(document).find('#itinerary-' + newDayNumber).removeClass('hidden').addClass('visible');
+	})
+})
+
+//switching days - adding a day creates a new panel body - switching days changes which panel body is shown

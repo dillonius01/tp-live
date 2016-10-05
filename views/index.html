@@ -37,38 +37,84 @@
     <div class="col-xs-6 col-sm-12">
       <h3>
         <span id="day-title">
-          <span>Day 2</span>
+          <span id="day-title-text">Day 1</span>
           <button class="btn btn-xs btn-danger remove btn-circle">x</button>
         </span>
       </h3>
-      <div class="panel panel-default">
+      <div class="panel panel-default" id="master-panel">
         <div class="panel-heading">
           <div class="day-buttons">
-            <button class="btn btn-circle day-btn">1</button>
-            <button class="btn btn-circle day-btn current-day">2</button>
+            <button class="btn btn-circle day-btn current-day">1</button>
+            <button class="btn btn-circle day-btn">2</button>
             <button class="btn btn-circle day-btn">3</button>
             <button class="btn btn-circle day-btn" id="day-add">+</button>
           </div>
         </div>
-        <div class="panel-body" id="itinerary">
+        <div class="panel-body panel-day visible" id="itinerary-1">
           <div>
             <h4>My Hotel</h4>
             <ul class="list-group">
-              <div class="itinerary-item" id="hotel-slot">
+              <div class="itinerary-item" id="hotel-slot-1">
               </div>
             </ul>
           </div>
           <div>
             <h4>My Restaurants</h4>
             <ul class="list-group">
-              <div class="itinerary-item" id="restaurant-slot">
+              <div class="itinerary-item" id="restaurant-slot-1">
               </div>
             </ul>
           </div>
           <div>
             <h4>My Activities</h4>
             <ul class="list-group">
-              <div class="itinerary-item" id="activity-slot">
+              <div class="itinerary-item" id="activity-slot-1">
+              </div>
+            </ul>
+          </div>
+        </div>
+        <div class="panel-body panel-day hidden" id="itinerary-2">
+          <div>
+            <h4>My Hotel</h4>
+            <ul class="list-group">
+              <div class="itinerary-item" id="hotel-slot-2">
+              </div>
+            </ul>
+          </div>
+          <div>
+            <h4>My Restaurants</h4>
+            <ul class="list-group">
+              <div class="itinerary-item" id="restaurant-slot-2">
+              </div>
+            </ul>
+          </div>
+          <div>
+            <h4>My Activities</h4>
+            <ul class="list-group">
+              <div class="itinerary-item" id="activity-slot-2">
+              </div>
+            </ul>
+          </div>
+        </div>
+        <div class="panel-body panel-day hidden" id="itinerary-3">
+          <div>
+            <h4>My Hotel</h4>
+            <ul class="list-group">
+              <div class="itinerary-item" id="hotel-slot-3">
+              </div>
+            </ul>
+          </div>
+          <div>
+            <h4>My Restaurants</h4>
+            <ul class="list-group">
+              <div class="itinerary-item" id="restaurant-slot-3">
+              </div>
+            </ul>
+          </div>
+          <div>
+            <h4>My Activities</h4>
+            <ul class="list-group">
+              <div class="itinerary-item" id="activity-slot-3">
               </div>
             </ul>
           </div>
