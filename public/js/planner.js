@@ -35,8 +35,8 @@ $(document).on('ready', function() {
 
 		var hotelSlot = $('#hotel-slot');
 		hotelSlot.html(
-			'<span class="title">' + hotelText +
-			'</span><button class="btn btn-xs btn-danger remove btn-circle">x</button>');
+			'<listpair><span class="title">' + hotelText +
+			'</span><button class="btn btn-xs btn-danger remove btn-circle">x</button></listpair>');
 
 		// clears previous hotel marker, and empties markers.hotel object
 		var hotelKeys = Object.keys(markers.hotel);
@@ -57,8 +57,8 @@ $(document).on('ready', function() {
 		var restaurantSlot = $('#restaurant-slot');
 		if (restaurantSlot.html().indexOf(restaurantText) === -1) {
 			restaurantSlot.append(
-				'<span class="title">' + restaurantText +
-				'</span><button class="btn btn-xs btn-danger remove btn-circle">x</button>');
+				'<listpair><span class="title">' + restaurantText +
+				'</span><button class="btn btn-xs btn-danger remove btn-circle">x</button></listpair>');
 		}
 
 		drawMarker(map, 'restaurant', restaurantObject.place.location, restaurantText)
@@ -73,8 +73,8 @@ $(document).on('ready', function() {
 		var activitySlot = $('#activity-slot');
 		if (activitySlot.html().indexOf(activityText) === -1) {
 				activitySlot.append(
-					'<span class="title">' + activityText +
-					'</span><button class="btn btn-xs btn-danger remove btn-circle">x</button>');
+					'<listpair><span class="title">' + activityText +
+					'</span><button class="btn btn-xs btn-danger remove btn-circle">x</button></listpair>');
 		}
 
 		drawMarker(map, 'activity', activityObject.place.location, activityText)
@@ -83,3 +83,34 @@ $(document).on('ready', function() {
 })
 
 // Remove from itinerary functions
+$(document).on('ready', function() {
+
+	$('.itinerary-item').on('click', '.btn', function() {
+
+		var spanToRemove = $(this).parent().children('span');
+		var buttonToRemove = $(this);
+		var listpairToRemove = $(this).parent();
+		var itineraryText = spanToRemove.text();
+		var markerType = buttonToRemove.parent().parent().attr('id').slice(0, -5);
+
+		// 1. remove text & button from page
+		listpairToRemove.remove();
+	
+		// 2. remove marker from map
+		markers[markerType][itineraryText].setMap(null);
+
+		// 3. remove marker from tracker object (?)
+		delete markers[markerType][itineraryText];
+
+	})
+})
+
+// Create new Day button when + clicked
+$(document).on('ready', function() {
+	$('#day-add').on('click', function() {
+		var newButtonVal = Number($(this).prev().text()) + 1;
+		var newDay = '<button class="btn btn-circle day-btn">' + newButtonVal.toString() + '</button>';
+		$(newDay).insertBefore($(this));
+	})
+})
+

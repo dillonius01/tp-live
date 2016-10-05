@@ -140,3 +140,11 @@ h3 {
     vertical-align: middle; }
   #day-title > .remove {
     margin-left: 1em; }
+
+listpair {
+  display: block;
+  width: 100%; }
+  listpair .btn {
+    float: right; }
+  listpair span {
+    width: 80%; }

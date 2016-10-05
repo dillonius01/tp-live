@@ -186,3 +186,15 @@ h3 {
     margin-left: 1em;
   }
 }
+
+listpair {
+  display: block;
+  width: 100%;
+
+  .btn {
+    float: right;
+  }
+  span {
+    width: 80%;
+  }
+}
